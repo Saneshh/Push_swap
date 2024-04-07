@@ -63,20 +63,13 @@ void	index_args(t_stacks *s)
 		free_error(s, "Error\n");
 	tmp_a = index_count(s, i, tmp_a);
 	i = s->a_size - 1;
-	while (i > 0)
+	while (i >= 0)
 	{
 		s->a[i] = tmp_a[i];
 		i--;
 	}
 	if (tmp_a)
 		free(tmp_a);
-}
-
-void index_args(s)
-{
-	int min;
-
-	if ()
 }
 
 static int	ft_nbr_word(char const *s, char c)

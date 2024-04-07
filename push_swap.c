@@ -108,20 +108,20 @@ int	main(int argc, char **argv)
 {
 	t_stacks	*s;
 
-	int i;
+//	int i;
 
-	i = 0;
+//	i = 0;
 	s = malloc(sizeof(t_stacks));
 	join_args(s, argv, argc);
 	init_stacks(argc, s);
 	parse_nbr(s);
 	check_dup(s);
 	index_args(s);
-	while(i < s->a_size)
+/*	while(i < s->a_size)
 	{
 		ft_printf("%d", s->a[i]);
 		i++;
-	}
+	}*/
 	if (s->a_size == 2 && s->a[0] > s->a[1])
 		swap("sa", s->a, s->a_size);
 	else if (s->a_size == 3)

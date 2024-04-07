@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
-
+/*
 void	three_args(t_stacks *s)
 {
 	if (s->a[2] < s->a[0] && s->a[2] < s->a[1])
@@ -31,6 +31,29 @@ void	three_args(t_stacks *s)
 			swap("sa", s->a, s->a_size);
 		rotate(s->a, s->a_size, "up", "a");
 	}
+}*/
+
+void	three_args(t_stacks *s)
+{
+	if (s->a[0] > s->a[1] && s->a[0] > s->a[2])
+	{
+		rotate(s->a, s->a_size, "up", "a");
+		if (s->a[0] > s->a[1])
+			swap("sa", s->a, s->a_size);
+	}
+
+	if (s->a[1] > s->a[0] && s->a[1] > s->a[2])
+	{
+		rotate(s->a, s->a_size, "down", "a");
+		if (s->a[0] > s->a[1])
+			swap("sa", s->a, s->a_size);
+	}
+	
+	if (s->a[2] > s->a[0] && s->a[2] > s->a[1])
+	{
+		if (s->a[0] > s->a[1])
+			swap("sa", s->a, s->a_size);
+	}
 }
 
 void	few_args(t_stacks *s)
@@ -38,7 +61,7 @@ void	few_args(t_stacks *s)
 	int	nbr_elements;
 
 	nbr_elements = s->a_size;
-	while (s->a_size != 3)
+	while (s->a_size != 3 && !solved(s))
 	{
 		if (s->a[0] == 0 || (s->a[0] == 1 && nbr_elements == 5))
 			push("pb", s);
@@ -66,7 +89,7 @@ int	solved(t_stacks *s)
 	}
 	return (1);
 }
-
+/*
 static void	radix_sort_resolve(t_stacks *s, int size, int bit_size, int j)
 {
 	int	b_elements;
@@ -115,4 +138,48 @@ void	radix_sort(t_stacks *s)
 	}
 	while (s->b_size != 0)
 		push("pa", s);
+}*/
+
+static void radix_sort_resolve(t_stacks *s, int bit_size, int size)
+{
+	int	i;
+	int	size_b;
+
+	i = 0;
+	while (i < size)
+	{
+		if (((s->a[0] >> bit_size) & 1) == 0)
+			push("pb", s);
+		else
+			rotate(s->a, s->a_size, "up", "a");
+		i++;
+	}
+	i = 0;
+	size_b = s->b_size;
+	while (s->b_size > 0 && i < size_b)
+	{
+		if (((s->b[0] >> (bit_size * 2)) & 1) == 0)
+			rotate(s->b, s->b_size, "up", "b");
+		else
+			push("pa", s);
+		i++;
+	}
+		if (solved(s))
+			while (s->b_size != 0)
+				push("pa", s);
+
+}
+
+void radix_sort(t_stacks *s)
+{
+	int	bit_size;
+	int	size;
+
+	bit_size = 1;
+	while (solved(s) != 1)
+	{
+		size = s->a_size;
+		radix_sort_resolve(s, bit_size, size);
+		bit_size++;
+	}
 }
