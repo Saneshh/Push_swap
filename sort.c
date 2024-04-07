@@ -6,32 +6,10 @@
 /*   By: hsolet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 09:46:16 by hsolet            #+#    #+#             */
-/*   Updated: 2024/04/06 12:17:57 by hsolet           ###   ########.fr       */
+/*   Updated: 2024/04/07 12:09:21 by hsolet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
-/*
-void	three_args(t_stacks *s)
-{
-	if (s->a[2] < s->a[0] && s->a[2] < s->a[1])
-	{
-		if (s->a[0] > s->a[1])
-			swap("sa", s->a, s->a_size);
-		rotate(s->a, s->a_size, "down", "a");
-	}
-	else if (s->a[2] > s->a[0] && s->a[2] > s->a[1])
-	{
-		if (s->a[0] > s->a[1])
-			swap("sa", s->a, s->a_size);
-	}
-	else if ((s->a[0] < s->a[1] && s->a[0] > s->a[2])
-		|| (s->a[0] > s->a[1] && s->a[0] < s->a[2]))
-	{
-		if (s->a[0] < s->a[1])
-			swap("sa", s->a, s->a_size);
-		rotate(s->a, s->a_size, "up", "a");
-	}
-}*/
 
 void	three_args(t_stacks *s)
 {
@@ -41,14 +19,12 @@ void	three_args(t_stacks *s)
 		if (s->a[0] > s->a[1])
 			swap("sa", s->a, s->a_size);
 	}
-
 	if (s->a[1] > s->a[0] && s->a[1] > s->a[2])
 	{
 		rotate(s->a, s->a_size, "down", "a");
 		if (s->a[0] > s->a[1])
 			swap("sa", s->a, s->a_size);
 	}
-	
 	if (s->a[2] > s->a[0] && s->a[2] > s->a[1])
 	{
 		if (s->a[0] > s->a[1])
@@ -89,97 +65,50 @@ int	solved(t_stacks *s)
 	}
 	return (1);
 }
-/*
-static void	radix_sort_resolve(t_stacks *s, int size, int bit_size, int j)
-{
-	int	b_elements;
 
-	b_elements = s->b_size;
-	while (size && !solved(s))
+static	int	get_max_bit(t_stacks *s)
+{
+	int	i;
+	int	max;
+	int	max_bit;
+
+	i = 0;
+	max_bit = 0;
+	max = s->a[0];
+	while (s->a[i])
 	{
-		if (((s->a[0] >> j) & 1) == 0)
-			push("pb", s);
-		else
-			rotate(s->a, s->a_size, "up", "a");
-		size--;
+		if (s->a[i] > max)
+			max = s->a[i];
+		i++;
 	}
-	while (b_elements && j <= bit_size && !solved(s))
-	{
-		if (((s->b[0] >> j) & 1) == 0)
-			rotate(s->b, s->b_size, "up", "b");
-		else
-			push("pa", s);
-		b_elements--;
-	}
-	if (solved(s))
-		while (s->b_size != 0)
-			push("pa", s);
+	while ((max >> max_bit) != 0)
+		max_bit++;
+	return (max_bit);
 }
 
 void	radix_sort(t_stacks *s)
 {
-	int	j;
-	int	bit_size;
-	int	size;
-
-	bit_size = 1;
-	size = s->a_size;
-	while (size > 1 && bit_size)
-	{
-		size /= 2;
-		bit_size++;
-	}
-	j = 0;
-	while (j <= bit_size)
-	{
-		size = s->a_size;
-		radix_sort_resolve(s, size, bit_size, j + 1);
-		j++;
-	}
-	while (s->b_size != 0)
-		push("pa", s);
-}*/
-
-static void radix_sort_resolve(t_stacks *s, int bit_size, int size)
-{
 	int	i;
-	int	size_b;
-
-	i = 0;
-	while (i < size)
-	{
-		if (((s->a[0] >> bit_size) & 1) == 0)
-			push("pb", s);
-		else
-			rotate(s->a, s->a_size, "up", "a");
-		i++;
-	}
-	i = 0;
-	size_b = s->b_size;
-	while (s->b_size > 0 && i < size_b)
-	{
-		if (((s->b[0] >> (bit_size * 2)) & 1) == 0)
-			rotate(s->b, s->b_size, "up", "b");
-		else
-			push("pa", s);
-		i++;
-	}
-		if (solved(s))
-			while (s->b_size != 0)
-				push("pa", s);
-
-}
-
-void radix_sort(t_stacks *s)
-{
-	int	bit_size;
+	int	j;
 	int	size;
+	int	max_bit;
 
-	bit_size = 1;
-	while (solved(s) != 1)
+	size = s->a_size;
+	max_bit = get_max_bit(s);
+	i = -1;
+	while (++i < size)
 	{
-		size = s->a_size;
-		radix_sort_resolve(s, bit_size, size);
-		bit_size++;
+		j = -1;
+		while (++j < size)
+		{
+			if (((s->a[0] >> i) & 1) == 0)
+				push("pb", s);
+			else
+				rotate(s->a, s->a_size, "up", "a");
+		}
+		while (s->b_size != 0)
+			push("pa", s);
+		if (solved(s))
+			free_error(s, "");
 	}
 }

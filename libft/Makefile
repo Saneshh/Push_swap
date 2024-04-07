@@ -66,7 +66,7 @@ $(NAME): $(OBJ)
 	@echo "\033[0mlibrary Libft Created ☑️"
 
 %.o: %.c
-	@echo -n "\033[0mCompilation Libft : "
+	@echo -n "\033[0mCompilation $@ : "
 	@$(CC) -o $@ -c $< $(CFLAGS)
 	@echo -n "\033[0m ☑️ \n"
 

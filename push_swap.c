@@ -6,7 +6,7 @@
 /*   By: hsolet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 09:46:34 by hsolet            #+#    #+#             */
-/*   Updated: 2024/04/06 12:27:32 by hsolet           ###   ########.fr       */
+/*   Updated: 2024/04/07 15:45:41 by hsolet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,29 +108,25 @@ int	main(int argc, char **argv)
 {
 	t_stacks	*s;
 
-//	int i;
-
-//	i = 0;
-	s = malloc(sizeof(t_stacks));
+	s = ft_calloc(1, sizeof(t_stacks));
+	if (s == NULL)
+		free_error(s, "Error\n");
 	join_args(s, argv, argc);
 	init_stacks(argc, s);
 	parse_nbr(s);
 	check_dup(s);
 	index_args(s);
-/*	while(i < s->a_size)
+	if (!solved(s))
 	{
-		ft_printf("%d", s->a[i]);
-		i++;
-	}*/
-	if (s->a_size == 2 && s->a[0] > s->a[1])
-		swap("sa", s->a, s->a_size);
-	else if (s->a_size == 3)
-		three_args(s);
-	else if (s->a_size == 4 || s->a_size == 5)
-		few_args(s);
-	else
-		radix_sort(s);
-	solved(s);
+		if (s->a_size == 2 && s->a[0] > s->a[1])
+			swap("sa", s->a, s->a_size);
+		else if (s->a_size == 3)
+			three_args(s);
+		else if (s->a_size == 4 || s->a_size == 5)
+			few_args(s);
+		else
+			radix_sort(s);
+	}
 	free_error(s, "");
 	return (0);
 }

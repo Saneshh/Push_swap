@@ -6,7 +6,7 @@
 /*   By: hsolet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 09:46:54 by hsolet            #+#    #+#             */
-/*   Updated: 2024/04/06 13:11:39 by hsolet           ###   ########.fr       */
+/*   Updated: 2024/04/07 15:47:20 by hsolet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,10 @@ void	init_stacks(int argc, t_stacks *s)
 		s->a_size += ft_nbr_word(s->args, ' ');
 	else
 		free_error(s, "Error\n");
-	s->a = malloc(s->a_size * sizeof(int));
+	s->a = ft_calloc(s->a_size, sizeof(int));
 	if (s->a == NULL)
 		free_error(s, "Error\n");
-	s->b = malloc(s->a_size * sizeof(int));
+	s->b = ft_calloc(s->a_size, sizeof(int));
 	if (s->b == NULL)
 		free_error(s, "Error\n");
 }
