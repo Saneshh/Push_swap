@@ -115,13 +115,13 @@ int	main(int argc, char **argv)
 	s = ft_calloc(1, sizeof(t_stacks));
 	if (s == NULL)
 		free_error(s, "Error\n");
-	if (argc < 2)
-		free_error(s, "");
 	join_args(s, argv, argc);
 	init_stacks(argc, s);
 	parse_nbr(s);
 	check_dup(s);
 	index_args(s);
+	if (argc <= 2)
+		free_error(s, "");
 	if (!solved(s))
 	{
 		if (s->a_size == 2 && s->a[0] > s->a[1])
