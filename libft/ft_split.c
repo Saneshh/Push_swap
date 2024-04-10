@@ -97,7 +97,7 @@ char	**ft_split(char const *s, char c)
 	j = 0;
 	if (s == NULL)
 		return (NULL);
-	str = malloc ((ft_nbr_word(s, c) + 1) * sizeof(char *));
+	str = ft_calloc ((ft_nbr_word(s, c) + 1), sizeof(char *));
 	if (str == NULL)
 		return (NULL);
 	while (i < ft_nbr_word(s, c))
@@ -106,7 +106,7 @@ char	**ft_split(char const *s, char c)
 		{
 			j += 1;
 		}
-		str[i] = malloc ((ft_len_word(s, c, j) + 1) * sizeof(char));
+		str[i] = ft_calloc ((ft_len_word(s, c, j) + 1), sizeof(char));
 		if (str[i] == NULL)
 			return (ft_free_all(str, ft_nbr_word(s, c)));
 		str[i] = fct_split(s, c, &j, str[i]);

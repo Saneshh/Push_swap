@@ -6,7 +6,7 @@
 /*   By: hsolet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 09:46:34 by hsolet            #+#    #+#             */
-/*   Updated: 2024/04/07 15:45:41 by hsolet           ###   ########.fr       */
+/*   Updated: 2024/04/10 08:16:06 by hsolet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	parse_nbr(t_stacks *s)
 	tmp = ft_split(s->args, ' ');
 	while (tmp[i] != NULL && tmp[i][0] != '\0')
 	{
-		if (ft_atol(tmp[i], s) == 0 && ft_strncmp(tmp[i], "0", 1))
+		if (ft_atol(tmp[i], s) == 0 && !ft_strncmp(tmp[i], "0", 1))
 			free_error(s, "Error\n");
 		s->a[i] = ft_atol(tmp[i], s);
 		free(tmp[i]);
