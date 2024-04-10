@@ -18,8 +18,14 @@ static	void	free_array(char **tmp)
 
 	i = 0;
 	while (tmp[i])
-		free(tmp[i++]);
-	free(tmp);
+	{
+		if (tmp[i])
+			free(tmp[i++]);
+		else
+			i++;
+	}
+	if (tmp)
+		free(tmp);
 }
 
 static	long int	ft_atol(const char *n)
@@ -89,17 +95,17 @@ void	parse_nbr(t_stacks *s)
 		free(tmp);
 	while (tmp[i] != NULL && tmp[i][0] != '\0')
 	{
-		if (ft_atol(tmp[i]) == 0 && !ft_strncmp(tmp[i], "0", 1)
-			&& ft_atol(tmp[i]) == 2147483648)
+		if ((ft_atol(tmp[i]) == 0 && !ft_strncmp(tmp[i], "0", 1))
+			|| ft_atol(tmp[i]) == 2147483648)
 		{
 			free_array(tmp);
 			free_error(s, "Error\n");
 		}
 		s->a[i] = ft_atol(tmp[i]);
-		free(tmp[i]);
 		i++;
 	}
-	free(tmp);
+	if (tmp)
+		free_array(tmp);
 }
 
 int	main(int argc, char **argv)

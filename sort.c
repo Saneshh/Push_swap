@@ -96,7 +96,7 @@ void	radix_sort(t_stacks *s)
 	size = s->a_size;
 	max_bit = get_max_bit(s);
 	i = -1;
-	while (++i < size)
+	while (++i < max_bit)
 	{
 		j = -1;
 		while (++j < size)
