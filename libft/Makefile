@@ -6,12 +6,12 @@
 #    By: hsolet <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 03:17:57 by hsolet            #+#    #+#              #
-#    Updated: 2023/11/16 15:15:20 by hsolet           ###   ########.fr        #
+#    Updated: 2024/04/10 12:44:18 by hsolet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g
 SRC = 		 ft_isdigit.c \
 			 ft_isalnum.c \
 			 ft_putnbr_fd.c \

@@ -6,13 +6,23 @@
 /*   By: hsolet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 09:46:34 by hsolet            #+#    #+#             */
-/*   Updated: 2024/04/10 08:16:06 by hsolet           ###   ########.fr       */
+/*   Updated: 2024/04/10 13:29:53 by hsolet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static	int	ft_atol(const char *n, t_stacks *s)
+static	void	free_array(char **tmp)
+{
+	int	i;
+
+	i = 0;
+	while (tmp[i])
+		free(tmp[i++]);
+	free(tmp);
+}
+
+static	long int	ft_atol(const char *n)
 {
 	int			i;
 	long		sign;
@@ -25,16 +35,16 @@ static	int	ft_atol(const char *n, t_stacks *s)
 		i++;
 	if ((n[i] == '+' || n[i] == '-'))
 	{
-		if (n[i] == '-')
+		if (n[i++] == '-')
 			sign = -1;
-		i++;
 	}
 	while (n[i])
 	{
-		if (res > 2147483647 || (res * sign) < -2147483648 || ft_strlen(n) > 11)
-			free_error(s, "Error\n");
+		if ((res > 2147483647 || (res * sign) < -2147483648)
+			&& ft_strlen(n) > 11)
+			return (2147483648);
 		if (!(n[i] >= '0' && n[i] <= '9'))
-			free_error(s, "Error\n");
+			return (2147483648);
 		res = res * 10 + (n[i++] - '0');
 	}
 	return ((int)(res * sign));
@@ -75,33 +85,21 @@ void	parse_nbr(t_stacks *s)
 
 	i = 0;
 	tmp = ft_split(s->args, ' ');
+	if (!tmp)
+		free(tmp);
 	while (tmp[i] != NULL && tmp[i][0] != '\0')
 	{
-		if (ft_atol(tmp[i], s) == 0 && !ft_strncmp(tmp[i], "0", 1))
+		if (ft_atol(tmp[i]) == 0 && !ft_strncmp(tmp[i], "0", 1)
+			&& ft_atol(tmp[i]) == 2147483648)
+		{
+			free_array(tmp);
 			free_error(s, "Error\n");
-		s->a[i] = ft_atol(tmp[i], s);
+		}
+		s->a[i] = ft_atol(tmp[i]);
 		free(tmp[i]);
 		i++;
 	}
 	free(tmp);
-}
-
-void	free_error(t_stacks *s, char *str)
-{
-	if (str)
-		ft_putstr_fd(str, 2);
-	if (s != NULL)
-	{
-		if (s->a != NULL)
-			free(s->a);
-		if (s->b != NULL)
-			free(s->b);
-		if (s->args != NULL)
-			free(s->args);
-		if (s != NULL)
-			free(s);
-	}
-	exit(1);
 }
 
 int	main(int argc, char **argv)
