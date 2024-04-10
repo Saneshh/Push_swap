@@ -115,6 +115,8 @@ int	main(int argc, char **argv)
 	s = ft_calloc(1, sizeof(t_stacks));
 	if (s == NULL)
 		free_error(s, "Error\n");
+	if (argc < 2)
+		free_error(s, "");
 	join_args(s, argv, argc);
 	init_stacks(argc, s);
 	parse_nbr(s);
