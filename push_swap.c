@@ -6,7 +6,7 @@
 /*   By: hsolet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 09:46:34 by hsolet            #+#    #+#             */
-/*   Updated: 2024/04/10 13:29:53 by hsolet           ###   ########.fr       */
+/*   Updated: 2024/04/13 13:30:18 by hsolet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	parse_nbr(t_stacks *s)
 		free(tmp);
 	while (tmp[i] != NULL && tmp[i][0] != '\0')
 	{
-		if ((ft_atol(tmp[i]) == 0 && !ft_strncmp(tmp[i], "0", 1))
+		if ((ft_atol(tmp[i]) == 0 && !ft_strchr(tmp[i], '0'))
 			|| ft_atol(tmp[i]) == 2147483648)
 		{
 			free_array(tmp);
@@ -115,13 +115,13 @@ int	main(int argc, char **argv)
 	s = ft_calloc(1, sizeof(t_stacks));
 	if (s == NULL)
 		free_error(s, "Error\n");
+	if (argc <= 2)
+		free_error(s, "");
 	join_args(s, argv, argc);
 	init_stacks(argc, s);
 	parse_nbr(s);
 	check_dup(s);
 	index_args(s);
-	if (argc <= 2)
-		free_error(s, "");
 	if (!solved(s))
 	{
 		if (s->a_size == 2 && s->a[0] > s->a[1])

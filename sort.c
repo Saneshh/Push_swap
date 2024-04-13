@@ -6,7 +6,7 @@
 /*   By: hsolet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 09:46:16 by hsolet            #+#    #+#             */
-/*   Updated: 2024/04/07 12:09:21 by hsolet           ###   ########.fr       */
+/*   Updated: 2024/04/13 13:31:49 by hsolet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -57,7 +57,7 @@ int	solved(t_stacks *s)
 	int	i;
 
 	i = 0;
-	while (i < s->a_size - 1)
+	while (i < s->a_size + 1)
 	{
 		if (s->a[i] > s->a[i + 1])
 			return (0);
