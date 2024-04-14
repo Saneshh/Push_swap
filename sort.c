@@ -57,7 +57,7 @@ int	solved(t_stacks *s)
 	int	i;
 
 	i = 0;
-	while (i < s->a_size + 1)
+	while (i < s->a_size - 1)
 	{
 		if (s->a[i] > s->a[i + 1])
 			return (0);
@@ -75,7 +75,7 @@ static	int	get_max_bit(t_stacks *s)
 	i = 0;
 	max_bit = 0;
 	max = s->a[0];
-	while (s->a[i])
+	while (i < s->a_size - 1)
 	{
 		if (s->a[i] > max)
 			max = s->a[i];
@@ -93,12 +93,13 @@ void	radix_sort(t_stacks *s)
 	int	size;
 	int	max_bit;
 
-	size = s->a_size;
+//	size = s->a_size;
 	max_bit = get_max_bit(s);
 	i = -1;
-	while (++i < max_bit)
+	while (++i <= max_bit)
 	{
 		j = -1;
+		size = s->a_size;
 		while (++j < size)
 		{
 			if (((s->a[0] >> i) & 1) == 0)
