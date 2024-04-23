@@ -6,7 +6,7 @@
 /*   By: hsolet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 09:46:54 by hsolet            #+#    #+#             */
-/*   Updated: 2024/04/13 13:18:08 by hsolet           ###   ########.fr       */
+/*   Updated: 2024/04/22 18:33:15 by hsolet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	index_args(t_stacks *s)
 	int	i;
 
 	i = 0;
-	tmp_a = malloc(s->a_size * sizeof(int));
+	tmp_a = ft_calloc(s->a_size, sizeof(int));
 	if (tmp_a == NULL)
 		free_error(s, "Error\n");
 	tmp_a = index_count(s, i, tmp_a);

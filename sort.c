@@ -6,7 +6,7 @@
 /*   By: hsolet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 09:46:16 by hsolet            #+#    #+#             */
-/*   Updated: 2024/04/13 13:31:49 by hsolet           ###   ########.fr       */
+/*   Updated: 2024/04/22 18:37:28 by hsolet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -37,7 +37,7 @@ void	few_args(t_stacks *s)
 	int	nbr_elements;
 
 	nbr_elements = s->a_size;
-	while (s->a_size != 3 && !solved(s))
+	while (s->a_size != 3)
 	{
 		if (s->a[0] == 0 || (s->a[0] == 1 && nbr_elements == 5))
 			push("pb", s);
@@ -93,7 +93,6 @@ void	radix_sort(t_stacks *s)
 	int	size;
 	int	max_bit;
 
-//	size = s->a_size;
 	max_bit = get_max_bit(s);
 	i = -1;
 	while (++i <= max_bit)

@@ -6,7 +6,7 @@
 /*   By: hsolet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 09:46:34 by hsolet            #+#    #+#             */
-/*   Updated: 2024/04/13 13:30:18 by hsolet           ###   ########.fr       */
+/*   Updated: 2024/04/22 18:50:39 by hsolet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ static	long int	ft_atol(const char *n)
 	}
 	while (n[i])
 	{
-		if ((res > 2147483647 || (res * sign) < -2147483648)
-			&& ft_strlen(n) > 11)
-			return (2147483648);
 		if (!(n[i] >= '0' && n[i] <= '9'))
-			return (2147483648);
+			return (66666666666);
 		res = res * 10 + (n[i++] - '0');
+		if ((res > 2147483647 || (res * sign) < -2147483648)
+			&& (res * sign) != -2147483648)
+			return (66666666666);
 	}
 	return ((int)(res * sign));
 }
@@ -84,7 +84,7 @@ void	join_args(t_stacks *s, char **argv, int argc)
 	free(tmp2);
 }
 
-void	parse_nbr(t_stacks *s)
+void	parse_nbr(t_stacks *s, int argc)
 {
 	char	**tmp;
 	int		i;
@@ -96,7 +96,7 @@ void	parse_nbr(t_stacks *s)
 	while (tmp[i] != NULL && tmp[i][0] != '\0')
 	{
 		if ((ft_atol(tmp[i]) == 0 && !ft_strchr(tmp[i], '0'))
-			|| ft_atol(tmp[i]) == 2147483648)
+			|| ft_atol(tmp[i]) == 66666666666)
 		{
 			free_array(tmp);
 			free_error(s, "Error\n");
@@ -106,6 +106,8 @@ void	parse_nbr(t_stacks *s)
 	}
 	if (tmp)
 		free_array(tmp);
+	if (i < argc - 1)
+		free_error(s, "Error\n");
 }
 
 int	main(int argc, char **argv)
@@ -115,11 +117,11 @@ int	main(int argc, char **argv)
 	s = ft_calloc(1, sizeof(t_stacks));
 	if (s == NULL)
 		free_error(s, "Error\n");
-	if (argc <= 2)
+	if (argc < 2)
 		free_error(s, "");
 	join_args(s, argv, argc);
 	init_stacks(argc, s);
-	parse_nbr(s);
+	parse_nbr(s, argc);
 	check_dup(s);
 	index_args(s);
 	if (!solved(s))

@@ -37,7 +37,7 @@ void		join_args(t_stacks *s, char **argv, int argc);
 void		init_stacks(int argc, t_stacks *s);
 void		index_args(t_stacks *s);
 void		check_dup(t_stacks *s);
-void		parse_nbr(t_stacks *s);
+void		parse_nbr(t_stacks *s, int argc);
 void		free_error(t_stacks *s, char *str);
 int			solved(t_stacks	*s);
 
